@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get '/logout', to: 'user_sessions#destroy'
 
   get '/vote', to: 'votes#new', as: :vote
+  post '/vote', to: 'votes#create'
 
   get '/results', to: 'votes#index', as: :results
 end

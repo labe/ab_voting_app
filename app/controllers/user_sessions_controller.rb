@@ -13,16 +13,27 @@ class UserSessionsController < ApplicationController
 
     user = User.find_or_initialize_by(email: email)
 
-    user.update!(zip_code: zip_code) unless user.zip_code == zip_code
-    session[:user_id] = user.id
-    session[:expires_at] = 5.minutes.from_now
+    if Vote.exists?(user_id: user.id)
+      redirect_to :results, notice: 'Your vote has already been recorded.'
+    else
+      user.update!(zip_code: zip_code) unless user.zip_code == zip_code
+      session[:user_id] = user.id
+      session[:expires_at] = 5.minutes.from_now
 
-    redirect_to :vote
+      redirect_to :vote
+    end
   end
 
   def destroy
     clear_session!
 
-    redirect_to :login, notice: 'You have successfully logged out.'
+    flash_message =
+      if params[:expired]
+        { alert: 'Your session expired. Sign in again to resume voting.' }
+      else
+        { notice: 'You have successfully logged out.' }
+      end
+
+    redirect_to :login, flash_message
   end
 end
