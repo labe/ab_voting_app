@@ -1,0 +1,23 @@
+<h1 class="mb-4 text-4xl">Election Results</h1>
+
+<div class="relative overflow-x-auto max-w-md">
+  <% if @vote_counts_per_candidate %>
+    <p class="mb-4 text-md">Results last updated: <%= time_ago_in_words(@votes_counted_at) %> ago</p>
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+      <tbody>
+        <% @vote_counts_per_candidate.each do |name, count| %>
+          <tr class="bg-white border-y">
+            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+              <%= name %>
+            </th>
+            <td class="px-6 py-4">
+              <%= count %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p class="text-lg">Results coming soon!</p>
+  <% end %>
+</div>

@@ -1,0 +1,21 @@
+<h1 class="mb-4 text-4xl">Sign in to vote</h1>
+
+<div class="relative overflow-x-auto max-w-md">
+  <form action="/login" method="post" accept-charset="UTF-8" class="flex flex-col">
+    <div class="flex flex-row items-center mb-2 justify-between">
+      <label for="email" class="text-xl">Email address:</label>
+      <input id="email" name="email" type="email" class="ml-2" required aria-required="true"/>
+    </div>
+
+    <div class="flex flex-row items-center mb-2 justify-between">
+      <label for="zip_code" class="text-xl">Zip code (5 digits):</label>
+      <input id="zip_code" name="zip_code" type="text" class="ml-2" required aria-required="true" pattern="[0-9]{5}" />
+    </div>
+
+    <div class="flex flex-row justify-center pt-4 mb-2">
+      <button class="bg-blue-500 hover:bg-blue-700 focus:bg-blue-700 text-white font-bold py-2 px-12 rounded">
+        Sign in
+      </button>
+    </div>
+  </form>
+</div>

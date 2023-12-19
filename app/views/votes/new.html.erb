@@ -1,0 +1,44 @@
+<div data-controller="vote">
+  <ul class="flex flex-row justify-between">
+    <li>
+      <h1 class="mb-4 text-4xl">Cast your vote!</h1>
+    </li>
+    <li>
+      <h4 class="mb-4 text-xl">Session time remaining:
+        <span data-vote-target="countdown" data-session-expires-at="<%= @expires_at %>">(calculating...)</span>
+      </h4>
+    </li>
+  </ul>
+
+  <div class="relative overflow-x-auto max-w-md">
+    <form action="/vote" method="post" accept-charset="UTF-8" class="flex flex-col" data-vote-target="form" data-can-write-in="<%= @can_write_in %>">
+      <% if @candidates.length > 0 %>
+        <% @candidates.each do |c| %>
+          <div class="flex flex-row items-center mb-2 ml-1">
+            <input type="radio" name="candidate_id" value="<%= c.id %>" id="<%= c.id %>" data-action="click->vote#clearWriteIn" />
+            <label for="<%= c.id %>" class="ml-2"><%= c.name %></label>
+          </div>
+        <% end %>
+      <% end %>
+      <% if @can_write_in %>
+        <div class="flex flex-row items-center ml-1">
+          <input type="radio" name="candidate_id" value="other" id="other" data-vote-target="other" data-action="click->vote#focusWriteIn">
+          <label for="other" class="ml-2">Other (write in below)</label>
+        </div>
+
+        <hr class="my-4" />
+
+        <div class="flex flex-row items-center">
+          <label for="write_in">Add a new candidate:</label>
+          <input id="write_in" name="write_in" type="text" class="ml-2" data-vote-target="writeIn" data-action="focus->vote#selectOther" />
+        </div>
+      <% end %>
+
+      <div class="flex flex-row justify-center pt-4 mb-2">
+        <button class="bg-blue-500 hover:bg-blue-700 focus:bg-blue-700 text-white font-bold py-2 px-12 rounded">
+          Vote!
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

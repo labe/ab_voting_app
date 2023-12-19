@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>AbVotingApp</title>
+    <title>VOTE.APP</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -12,7 +12,20 @@
   </head>
 
   <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+    <% flash.each do |type, msg| %>
+        <% if type == "notice" %>
+          <div class="p-4 mb-2 text-xl text-blue-800 rounded-lg bg-blue-50 flex justify-center" role="alert">
+            <span class="font-medium mr-1"><%= msg %></span>
+        <% elsif type == "alert" %>
+          <div class="p-4 mb-2 text-xl text-red-800 rounded-lg bg-red-50 flex justify-center" role="alert">
+            <span class="font-medium mr-1"><%= msg %></span>
+        <% end %>
+      </div>
+    <% end %>
+
+    <%= render "layouts/nav" %>
+
+    <main class="container px-10 flex-auto flex-col">
       <%= yield %>
     </main>
   </body>
