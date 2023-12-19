@@ -3,6 +3,8 @@ class UserSessionsController < ApplicationController
     if current_user
       redirect_to :vote
     end
+
+    @show_results_link = true
   end
 
   def create
