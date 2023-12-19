@@ -1,24 +1,42 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Dependencies
 
-Things you may want to cover:
+System requirements:
+- Ruby: 3.2.2
+- PostgreSQL (installed and running)
 
-* Ruby version
+This is a Rails 7 app initialized with:
+- javascript: `esbuild`
+- database: `postgres`
+- css: `tailwind`
 
-* System dependencies
+and further configured with:
+- caching: `redis`
+- tests: `rspec`, `factory_bot`, `shoulda-matchers` and `database-cleaner`
 
-* Configuration
+`pgcrypto` has [been enabled](https://github.com/labe/ab_voting_app/blob/main/db/migrate/20231219001747_enable_uuid.rb) to allow database tables to have `uuid`s as primary keys
+*****
 
-* Database creation
+### Getting started
 
-* Database initialization
+- Install dependencies: `$ bundle install`
+- Create the db and run migrations: `$ rails db:setup`
+- Start the server: `$ rails s` or `$ ./bin/dev`
 
-* How to run the test suite
+*****
 
-* Services (job queues, cache servers, search engines, etc.)
+### Running tests
 
-* Deployment instructions
+`$ rspec`
 
-* ...
+For a specific file: `$ rspec <path/to/spec>.rb`
+For a specific test: `$ rspec <path/to/spec>.rb:<line number of test>`
+
+*****
+
+### Notes
+
+Three basic models/tables have already been set up: `User`, `Candidate`, and `Vote`. Their associations to each other, as well as their attribute validations, are defined in the model files and covered in their respective model specs.
+
+All three tables have `uuid` primary `id`s for enhanced security.
